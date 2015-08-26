@@ -7,7 +7,7 @@ public class QueryStream {
     private int qiter = 0;
     private int iiter = 0;
 
-    public static class Query{
+    public static class Query {
         private int timestamp;
         private String words;
 
@@ -21,7 +21,7 @@ public class QueryStream {
         this.qs = qs;
     }
 
-    public String next(){
+    public String next() {
         String word = null;
         Query q;
         if (qiter < qs.size()) {
@@ -38,8 +38,8 @@ public class QueryStream {
         return word;
     }
 
-    public boolean hasNext(){
-        String[] last = qs.get((qs.size()-1)).words.split(" ");
+    public boolean hasNext() {
+        String[] last = qs.get((qs.size() - 1)).words.split(" ");
         if (qiter < (qs.size() - 1)) {
             return true;
         } else if (qiter < qs.size() && index < last.length) {
@@ -50,23 +50,24 @@ public class QueryStream {
 
     public void iterator() {
         while (qiter < qs.size()) {
-                if (hasNext()) {
-                    if (iiter == qiter) {
-                        if (iiter - 1 >= 0) {
-                            System.out.println((qs.get(iiter).timestamp - qs.get(iiter - 1).timestamp));
-                            System.out.println(next());
-                            iiter++;
-                        } else {
-                            System.out.println("<First Query>");
-                            System.out.println(next());
-                            iiter++;
-                        }
-                    } else {
+            if (hasNext()) {
+                if (iiter == qiter) {
+                    if (iiter - 1 >= 0) {
+                        System.out.println((qs.get(iiter).timestamp - qs.get(iiter - 1).timestamp));
                         System.out.println(next());
+                        iiter++;
+                    } else {
+                        System.out.println("<First Query>");
+                        System.out.println(next());
+                        iiter++;
                     }
+                } else {
+                    System.out.println(next());
                 }
+            }
         }
     }
+
     public static void main(String[] args) {
         Query q = new Query(12082014, "some words strings things");
         Query q1 = new Query(12092015, "birthday party");
